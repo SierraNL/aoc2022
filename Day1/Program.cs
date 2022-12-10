@@ -22,3 +22,10 @@ var elfWithMostCalories = caloriesPerElf.MaxBy(x => x.Value);
 Console.WriteLine($"Elf {elfWithMostCalories.Key} has the most calories: {elfWithMostCalories.Value}");
 
 //Elf 31 has the most calories: 66306
+
+//Part 2
+var orderedByMostCalories = caloriesPerElf.OrderByDescending(x => x.Value);
+var threeElfsWithMostCalories = orderedByMostCalories.Take(3);
+var sumOfTop3 = threeElfsWithMostCalories.Sum(x => x.Value);
+
+Console.WriteLine($"The top 3 elves have a combined total of calories of {sumOfTop3}");
