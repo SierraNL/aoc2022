@@ -2,6 +2,7 @@
 
 var input = File.ReadAllLines("input.txt");
 int totalConveringPairs = 0;
+int totalOverlappingPairs = 0;
 
 foreach(var pair in input) {
     var elf1 = GetRange(pair.Split(',')[0]);
@@ -10,9 +11,14 @@ foreach(var pair in input) {
     if(IsCovering(elf1, elf2)) {
         totalConveringPairs++;
     }
+
+    if(IsOverlapping(elf1, elf2)) {
+        totalOverlappingPairs++;
+    }
 }
 
 Console.WriteLine($"The assignments contain {totalConveringPairs} covering pairs of elfs.");
+Console.WriteLine($"The assignments contain {totalOverlappingPairs} overlapping pairs of elfs.");
 
 IEnumerable<int> GetRange(string input) {
     var result = new List<int>();
@@ -32,6 +38,17 @@ bool IsCovering(IEnumerable<int> elf1, IEnumerable<int> elf2) {
 
     if(elf1.All(x => elf2.Contains(x)) || elf2.All(x => elf1.Contains(x))) {
         Console.WriteLine($"Pairs {string.Join(",", elf1)} and {string.Join(",", elf2)} are covering pairs of elfs.");
+        result = true;
+    }
+
+    return result;
+}
+
+bool IsOverlapping(IEnumerable<int> elf1, IEnumerable<int> elf2) {
+    bool result = false;
+
+    if(elf1.Any(x => elf2.Contains(x)) || elf2.Any(x => elf1.Contains(x))) {
+        Console.WriteLine($"Pairs {string.Join(",", elf1)} and {string.Join(",", elf2)} are overlapping pairs of elfs.");
         result = true;
     }
 
